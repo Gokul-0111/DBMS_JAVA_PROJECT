@@ -1,0 +1,6 @@
+{
+  "name": "ParkEase - Smart Parking Management System",
+  "description": "Smart Parking Management System with real-time 20-slot allocation, Java OOP architecture, vehicle exit billing with 8-hour cap, slot booking editing, and faculty viva preparation hub.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

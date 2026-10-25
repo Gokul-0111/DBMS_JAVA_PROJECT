@@ -1,0 +1,705 @@
+<!DOCTYPE html>
+
+<html class="h-full" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Park Vehicle - Ticket Generation | ParkEase</title>
+<!-- Material Symbols Outlined Font -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Google Fonts: Plus Jakarta Sans & JetBrains Mono -->
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&amp;family=Plus Jakarta+Sans:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Tailwind CSS v3 with Plugins -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          "colors": {
+            "surface": "#f8f9ff",
+            "error-container": "#ffdad6",
+            "surface-bright": "#f8f9ff",
+            "primary-container": "#131b2e",
+            "secondary-container": "#316bf3",
+            "on-error-container": "#93000a",
+            "secondary-fixed": "#dbe1ff",
+            "primary": "#000000",
+            "surface-container-lowest": "#ffffff",
+            "on-secondary-container": "#fefcff",
+            "tertiary": "#000000",
+            "inverse-on-surface": "#eaf1ff",
+            "error": "#ba1a1a",
+            "primary-fixed": "#dae2fd",
+            "surface-container": "#e5eeff",
+            "surface-container-low": "#eff4ff",
+            "tertiary-container": "#002113",
+            "on-tertiary": "#ffffff",
+            "background": "#f8f9ff",
+            "on-primary-container": "#7c839b",
+            "surface-variant": "#d3e4fe",
+            "outline": "#76777d",
+            "surface-container-highest": "#d3e4fe",
+            "on-primary": "#ffffff",
+            "inverse-primary": "#bec6e0",
+            "on-primary-fixed-variant": "#3f465c",
+            "on-error": "#ffffff",
+            "inverse-surface": "#213145",
+            "on-primary-fixed": "#131b2e",
+            "surface-tint": "#565e74",
+            "on-surface": "#0b1c30",
+            "on-tertiary-container": "#009668",
+            "on-tertiary-fixed-variant": "#005236",
+            "on-surface-variant": "#45464d",
+            "on-secondary-fixed": "#00174b",
+            "outline-variant": "#c6c6cd",
+            "tertiary-fixed": "#6ffbbe",
+            "surface-container-high": "#dce9ff",
+            "tertiary-fixed-dim": "#4edea3",
+            "secondary": "#0051d5",
+            "on-secondary-fixed-variant": "#003ea8",
+            "on-secondary": "#ffffff",
+            "on-tertiary-fixed": "#002113",
+            "surface-dim": "#cbdbf5",
+            "primary-fixed-dim": "#bec6e0",
+            "secondary-fixed-dim": "#b4c5ff",
+            "on-background": "#0b1c30"
+          },
+          "borderRadius": {
+            "DEFAULT": "0.25rem",
+            "lg": "0.5rem",
+            "xl": "0.75rem",
+            "full": "9999px"
+          },
+          "spacing": {
+            "space-sm": "0.5rem",
+            "gutter": "1rem",
+            "space-xl": "2rem",
+            "space-md": "1rem",
+            "margin": "1.5rem",
+            "space-lg": "1.5rem",
+            "gutter-lg": "1.5rem",
+            "space-xs": "0.25rem",
+            "margin-lg": "2rem"
+          },
+          "fontFamily": {
+            "headline-sm": ["Plus Jakarta Sans"],
+            "body-sm": ["Plus Jakarta Sans"],
+            "title-md": ["Plus Jakarta Sans"],
+            "label-mono-sm": ["JetBrains Mono"],
+            "body-md": ["Plus Jakarta Sans"],
+            "body-lg": ["Plus Jakarta Sans"],
+            "label-ui": ["Plus Jakarta Sans"],
+            "label-mono": ["JetBrains Mono"],
+            "headline-md": ["Plus Jakarta Sans"],
+            "display-lg": ["Plus Jakarta Sans"]
+          },
+          "fontSize": {
+            "headline-sm": ["18px", {"lineHeight": "26px", "letterSpacing": "-0.01em", "fontWeight": "600"}],
+            "body-sm": ["12px", {"lineHeight": "16px", "fontWeight": "400"}],
+            "title-md": ["16px", {"lineHeight": "24px", "fontWeight": "600"}],
+            "label-mono-sm": ["11px", {"lineHeight": "14px", "letterSpacing": "0.06em", "fontWeight": "500"}],
+            "body-md": ["13px", {"lineHeight": "18px", "fontWeight": "400"}],
+            "body-lg": ["15px", {"lineHeight": "22px", "fontWeight": "400"}],
+            "label-ui": ["12px", {"lineHeight": "16px", "letterSpacing": "0.02em", "fontWeight": "600"}],
+            "label-mono": ["13px", {"lineHeight": "16px", "letterSpacing": "0.04em", "fontWeight": "600"}],
+            "headline-md": ["24px", {"lineHeight": "32px", "letterSpacing": "-0.015em", "fontWeight": "600"}],
+            "display-lg": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.02em", "fontWeight": "700"}]
+          }
+        }
+      }
+    }
+  </script>
+<style>
+    .material-symbols-outlined {
+      font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+      display: inline-block;
+      vertical-align: middle;
+      line-height: 1;
+    }
+    .barcode-lines {
+      background: repeating-linear-gradient(
+        90deg,
+        #0b1c30,
+        #0b1c30 2px,
+        transparent 2px,
+        transparent 4px,
+        #0b1c30 4px,
+        #0b1c30 7px,
+        transparent 7px,
+        transparent 9px,
+        #0b1c30 9px,
+        #0b1c30 11px,
+        transparent 11px,
+        transparent 15px
+      );
+    }
+  </style>
+</head>
+<body class="bg-background text-on-surface min-h-screen flex flex-col font-body-md antialiased selection:bg-secondary-fixed selection:text-on-secondary-fixed">
+<!-- SHARED COMPONENT: TopNavBar (from JSON Specification) -->
+<header class="w-full px-space-lg py-2 flex items-center justify-between border-b border-outline-variant dark:border-outline bg-surface-container-lowest dark:bg-primary-container docked full-width top-0 sticky z-50 shadow-sm dark:shadow-none">
+<div class="flex items-center gap-space-xl">
+<!-- Product Logo & Branding -->
+<div class="flex items-center gap-space-sm cursor-pointer">
+<div class="w-8 h-8 rounded bg-secondary flex items-center justify-center text-on-secondary shadow-sm">
+<span class="material-symbols-outlined text-[20px]">local_parking</span>
+</div>
+<span class="text-headline-md font-headline-md font-bold text-on-surface dark:text-inverse-on-surface tracking-tight">ParkEase</span>
+<span class="hidden xl:inline-flex items-center px-1.5 py-0.5 rounded bg-surface-container text-on-surface-variant font-label-mono-sm text-label-mono-sm border border-outline-variant">v2.4-OP</span>
+</div>
+<!-- Navigation Links from JSON (Exact Casing & Mapping: 'Park Vehicle' is Active) -->
+<nav class="hidden md:flex items-center gap-space-lg">
+<a class="text-on-surface-variant dark:text-outline-variant font-title-md text-title-md pb-3 pt-3 flex items-center gap-2 transition-colors duration-150 hover:text-secondary dark:hover:text-secondary-fixed" href="#">
+<span>Dashboard</span>
+</a>
+<a class="text-secondary dark:text-secondary-fixed font-title-md text-title-md border-b-2 border-secondary dark:border-secondary-fixed pb-3 pt-3 flex items-center gap-2" href="#">
+<span>Park Vehicle</span>
+</a>
+<a class="text-on-surface-variant dark:text-outline-variant font-title-md text-title-md pb-3 pt-3 flex items-center gap-2 transition-colors duration-150 hover:text-secondary dark:hover:text-secondary-fixed" href="#">
+<span>Vehicle Exit &amp; Billing</span>
+</a>
+<a class="text-on-surface-variant dark:text-outline-variant font-title-md text-title-md pb-3 pt-3 flex items-center gap-2 transition-colors duration-150 hover:text-secondary dark:hover:text-secondary-fixed" href="#">
+<span>Live Slot Map</span>
+</a>
+<a class="text-on-surface-variant dark:text-outline-variant font-title-md text-title-md pb-3 pt-3 flex items-center gap-2 transition-colors duration-150 hover:text-secondary dark:hover:text-secondary-fixed" href="#">
+<span>Parking Summary</span>
+</a>
+</nav>
+</div>
+<!-- Trailing Actions & Cluster -->
+<div class="flex items-center gap-space-md">
+<!-- Search Bar on Right -->
+<div class="relative hidden lg:block w-52">
+<span class="material-symbols-outlined absolute left-2.5 top-1/2 -translate-y-1/2 text-outline text-[18px]">search</span>
+<input class="w-full h-8 pl-8 pr-3 text-body-sm font-body-sm bg-surface rounded border border-outline-variant focus:border-secondary focus:ring-1 focus:ring-secondary focus:outline-none" placeholder="Search ticket/plate..." type="text"/>
+</div>
+<!-- Trailing Secondary Action -->
+<div class="hidden sm:flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-surface-container border border-outline-variant text-on-surface-variant font-label-mono-sm text-label-mono-sm">
+<span class="w-2 h-2 rounded-full bg-tertiary-fixed-dim animate-pulse"></span>
+<span>System Status: Active (Array[20])</span>
+</div>
+<!-- Trailing Primary Action -->
+<button class="px-3 py-1.5 rounded bg-error text-on-error font-label-ui text-label-ui hover:bg-on-error-container transition-colors shadow-sm flex items-center gap-1" type="button">
+<span class="material-symbols-outlined text-[16px]">gavel</span>
+<span>Emergency Override</span>
+</button>
+<!-- Trailing Icon Actions -->
+<div class="flex items-center gap-1 border-l border-outline-variant pl-2">
+<button class="w-8 h-8 rounded flex items-center justify-center text-on-surface-variant hover:bg-surface-container transition-colors" title="Notifications" type="button">
+<span class="material-symbols-outlined text-[20px]">notifications</span>
+</button>
+<button class="w-8 h-8 rounded flex items-center justify-center text-on-surface-variant hover:bg-surface-container transition-colors" title="Settings" type="button">
+<span class="material-symbols-outlined text-[20px]">settings</span>
+</button>
+</div>
+<!-- Profile Avatar -->
+<div class="w-8 h-8 rounded-full bg-primary-container text-inverse-on-surface flex items-center justify-center font-label-ui text-label-ui border border-outline-variant overflow-hidden" title="Administrator profile avatar">
+<span class="material-symbols-outlined text-[18px]">shield_person</span>
+</div>
+</div>
+</header>
+<!-- Sub-Header / Operational Breadcrumb Strip -->
+<div class="w-full bg-surface-container-lowest border-b border-outline-variant px-space-lg py-2 flex items-center justify-between">
+<div class="flex items-center gap-space-sm text-body-sm font-body-sm text-on-surface-variant">
+<span class="flex items-center gap-1"><span class="material-symbols-outlined text-[16px]">business</span> Central Terminal Facility</span>
+<span class="text-outline">/</span>
+<span class="text-on-surface font-label-ui text-label-ui">Entry Gate #01 (North Inbound)</span>
+<span class="inline-flex items-center px-2 py-0.5 rounded-full bg-surface-container text-secondary text-label-mono-sm font-label-mono-sm font-semibold">TICKET TERMINAL ONLINE</span>
+</div>
+<div class="text-label-mono-sm font-label-mono-sm text-on-surface-variant">
+      SERVER TIME: <span class="text-on-surface font-semibold" id="live-time">14:35:12 UTC+5:30</span>
+</div>
+</div>
+<!-- Operational Canvas -->
+<main class="flex-1 w-full max-w-[1720px] mx-auto px-space-lg py-space-lg flex flex-col gap-space-lg">
+<!-- Top System Alert States (Simulated Operational Banners) -->
+<div class="grid grid-cols-1 lg:grid-cols-2 gap-space-md">
+<!-- Duplicate Vehicle Check Alert State -->
+<div class="flex items-start gap-3 p-3.5 rounded-lg bg-surface-container border border-outline-variant shadow-sm relative overflow-hidden">
+<div class="w-1.5 absolute left-0 top-0 bottom-0 bg-secondary"></div>
+<div class="w-7 h-7 rounded-full bg-surface-container-high text-secondary flex items-center justify-center shrink-0 mt-0.5">
+<span class="material-symbols-outlined text-[18px]">info</span>
+</div>
+<div class="flex-1">
+<div class="flex items-center justify-between">
+<span class="text-label-ui font-label-ui text-on-surface">Live Validation Guard</span>
+<span class="text-label-mono-sm font-label-mono-sm text-on-surface-variant">CODE: DUP_CHK_ON</span>
+</div>
+<p class="text-body-sm font-body-sm text-on-surface-variant mt-0.5">
+            System enforces single active session. Sample alert: <span class="font-label-mono text-label-mono text-error font-semibold bg-error-container/40 px-1.5 py-0.5 rounded border border-error/20">Vehicle DL-04-CA-1029 is already parked in Slot 04</span>. Duplicate admissions are locked automatically.
+          </p>
+</div>
+</div>
+<!-- ParkingFullException Warning Banner -->
+<div class="flex items-start gap-3 p-3.5 rounded-lg bg-error-container/30 border border-error/30 shadow-sm relative overflow-hidden">
+<div class="w-1.5 absolute left-0 top-0 bottom-0 bg-error"></div>
+<div class="w-7 h-7 rounded-full bg-error-container text-error flex items-center justify-center shrink-0 mt-0.5">
+<span class="material-symbols-outlined text-[18px]">warning</span>
+</div>
+<div class="flex-1">
+<div class="flex items-center justify-between">
+<span class="text-label-ui font-label-ui text-error font-semibold">ParkingFullException Monitor</span>
+<span class="text-label-mono-sm font-label-mono-sm text-error">CONSECUTIVE_BAY_RESTRICTION</span>
+</div>
+<p class="text-body-sm font-body-sm text-on-surface-variant mt-0.5">
+            Heavy freight constraint: <span class="font-medium text-on-surface">No vacant slots available or no 2 consecutive slots for Truck</span> will redirect traffic to Overflow Lot C automatically.
+          </p>
+</div>
+</div>
+</div>
+<!-- Core Two-Column Layout -->
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-gutter-lg items-start">
+<!-- LEFT COLUMN: Vehicle Entry Form (7 cols) -->
+<section class="lg:col-span-7 bg-surface-container-lowest rounded-xl border border-outline-variant p-space-lg shadow-sm flex flex-col gap-space-lg">
+<!-- Header -->
+<div class="flex items-center justify-between border-b border-outline-variant pb-space-md">
+<div>
+<h1 class="text-headline-sm font-headline-sm text-on-surface">Vehicle Entry &amp; Admission</h1>
+<p class="text-body-sm font-body-sm text-on-surface-variant">Issue physical/digital transit slip and trigger dynamic slot lock.</p>
+</div>
+<div class="flex items-center gap-1.5 px-2.5 py-1 rounded bg-surface-container text-on-surface-variant font-label-mono-sm text-label-mono-sm border border-outline-variant">
+<span class="material-symbols-outlined text-[14px] text-tertiary-fixed-dim">sensors</span>
+            ANPR Camera Active
+          </div>
+</div>
+<form class="flex flex-col gap-space-lg" id="vehicleEntryForm" onsubmit="event.preventDefault(); simulateAllocation();">
+<!-- Registration Input Zone -->
+<div class="flex flex-col gap-1.5">
+<div class="flex items-center justify-between">
+<label class="text-label-ui font-label-ui text-on-surface" for="plateInput">Vehicle Registration Number</label>
+<span class="text-label-mono-sm font-label-mono-sm text-secondary cursor-pointer hover:underline" onclick="document.getElementById('plateInput').value='KA-05-MJ-4321'; updatePlatePreview();">Populate Detected Plate</span>
+</div>
+<div class="relative">
+<div class="absolute left-3 top-1/2 -translate-y-1/2 flex items-center gap-1 text-on-surface-variant">
+<span class="material-symbols-outlined text-[20px] text-outline">badge</span>
+<span class="text-label-mono-sm font-label-mono-sm font-bold text-outline">IND</span>
+</div>
+<input class="w-full h-11 pl-16 pr-28 text-label-mono font-label-mono text-on-surface bg-surface-container-lowest border border-outline-variant rounded-lg focus:border-secondary focus:ring-2 focus:ring-secondary/20 uppercase tracking-widest text-[16px] transition-all" id="plateInput" oninput="this.value = this.value.toUpperCase(); updatePlatePreview();" placeholder="AB-12-CD-3456" required="" type="text" value="KA-05-MJ-4321"/>
+<div class="absolute right-2.5 top-1/2 -translate-y-1/2 flex items-center gap-1">
+<span class="text-label-mono-sm font-label-mono-sm px-2 py-0.5 rounded bg-surface-container text-tertiary-fixed-variant font-bold border border-outline-variant">VERIFIED</span>
+</div>
+</div>
+<!-- Helper & Validation Note -->
+<div class="flex items-center justify-between text-body-sm font-body-sm">
+<span class="text-on-surface-variant flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px] text-outline">info</span>
+                Format: <code class="font-label-mono text-label-mono-sm font-semibold text-on-surface">AB-12-CD-3456</code> (State code, RTO numeric, series, unique number).
+              </span>
+<span class="text-label-mono-sm font-label-mono-sm text-outline">AUTO-UPPERCASE VALIDATED</span>
+</div>
+</div>
+<!-- Vehicle Type Selector (Interactive Cards / Radio) -->
+<div class="flex flex-col gap-2">
+<div class="flex items-center justify-between">
+<label class="text-label-ui font-label-ui text-on-surface">Select Vehicle Category</label>
+<span class="text-body-sm font-body-sm text-on-surface-variant">Select clearance height &amp; dimension requirements</span>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-3 gap-space-md">
+<!-- Bike Card -->
+<label class="relative flex flex-col p-4 rounded-xl border-2 border-outline-variant cursor-pointer transition-all hover:border-outline bg-surface-container-lowest has-[:checked]:border-secondary has-[:checked]:bg-surface-container-low has-[:checked]:shadow-sm">
+<input class="sr-only" name="vehicleType" onchange="handleTypeChange('Bike', 10, '1 Slot required', 'Slot 02')" type="radio" value="Bike"/>
+<div class="flex items-center justify-between mb-2">
+<div class="w-8 h-8 rounded bg-surface-container text-on-surface-variant flex items-center justify-center">
+<span class="material-symbols-outlined text-[20px]">two_wheeler</span>
+</div>
+<span class="text-label-mono-sm font-label-mono-sm font-bold text-on-surface-variant bg-surface px-1.5 py-0.5 rounded border border-outline-variant">₹10/hr</span>
+</div>
+<div class="text-title-md font-title-md text-on-surface font-semibold">Bike</div>
+<div class="text-body-sm font-body-sm text-on-surface-variant mt-0.5">Compact two-wheeler</div>
+<div class="mt-3 pt-2 border-t border-outline-variant/60 flex items-center justify-between text-label-mono-sm font-label-mono-sm">
+<span class="text-tertiary-fixed-variant font-medium">1 Slot required</span>
+<span class="text-outline">Standard bay</span>
+</div>
+</label>
+<!-- Car Card (Default Checked) -->
+<label class="relative flex flex-col p-4 rounded-xl border-2 border-secondary bg-surface-container-low shadow-sm cursor-pointer transition-all has-[:checked]:border-secondary has-[:checked]:bg-surface-container-low">
+<input checked="" class="sr-only" name="vehicleType" onchange="handleTypeChange('Car', 30, '1 Slot required', 'Slot 07')" type="radio" value="Car"/>
+<div class="flex items-center justify-between mb-2">
+<div class="w-8 h-8 rounded bg-secondary-container text-on-secondary flex items-center justify-center">
+<span class="material-symbols-outlined text-[20px]">directions_car</span>
+</div>
+<span class="text-label-mono-sm font-label-mono-sm font-bold text-secondary bg-surface-container-lowest px-1.5 py-0.5 rounded border border-secondary/30">₹30/hr</span>
+</div>
+<div class="text-title-md font-title-md text-on-surface font-semibold flex items-center gap-1.5">
+                  Car
+                  <span class="w-2 h-2 rounded-full bg-secondary"></span>
+</div>
+<div class="text-body-sm font-body-sm text-on-surface-variant mt-0.5">Sedan, Hatchback, SUV</div>
+<div class="mt-3 pt-2 border-t border-secondary/20 flex items-center justify-between text-label-mono-sm font-label-mono-sm">
+<span class="text-secondary font-medium">1 Slot required</span>
+<span class="text-on-surface-variant">Standard bay</span>
+</div>
+</label>
+<!-- Truck Card (Requires 2 consecutive slots) -->
+<label class="relative flex flex-col p-4 rounded-xl border-2 border-outline-variant cursor-pointer transition-all hover:border-outline bg-surface-container-lowest has-[:checked]:border-secondary has-[:checked]:bg-surface-container-low has-[:checked]:shadow-sm">
+<input class="sr-only" name="vehicleType" onchange="handleTypeChange('Truck', 60, 'Requires 2 consecutive slots!', 'Bay 11-12 [Span]')" type="radio" value="Truck"/>
+<div class="flex items-center justify-between mb-2">
+<div class="w-8 h-8 rounded bg-surface-container text-on-surface-variant flex items-center justify-center">
+<span class="material-symbols-outlined text-[20px]">local_shipping</span>
+</div>
+<span class="text-label-mono-sm font-label-mono-sm font-bold text-on-surface-variant bg-surface px-1.5 py-0.5 rounded border border-outline-variant">₹60/hr</span>
+</div>
+<div class="text-title-md font-title-md text-on-surface font-semibold">Truck</div>
+<div class="text-body-sm font-body-sm text-on-surface-variant mt-0.5">Heavy commercial &amp; bus</div>
+<div class="mt-3 pt-2 border-t border-outline-variant/60 flex items-center justify-between text-label-mono-sm font-label-mono-sm">
+<span class="text-error font-semibold flex items-center gap-0.5">
+<span class="material-symbols-outlined text-[13px]">warning</span>
+                    2 consecutive!
+                  </span>
+<span class="text-outline">Dual span</span>
+</div>
+</label>
+</div>
+</div>
+<!-- Slot Allocation Logic Preview & Algorithm Notice -->
+<div class="p-4 rounded-lg bg-surface-container border border-outline-variant flex flex-col gap-2">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-secondary text-[20px]">account_tree</span>
+<span class="text-label-ui font-label-ui text-on-surface">Automated Slot Allocation Preview</span>
+</div>
+<span class="text-label-mono-sm font-label-mono-sm font-semibold text-secondary px-2 py-0.5 rounded bg-surface-container-lowest border border-outline-variant">FIRST-FIT ENGINE v1.2</span>
+</div>
+<p class="text-body-sm font-body-sm text-on-surface-variant">
+              The spatial allocator scans linearly, <strong class="text-on-surface">allocating lowest index available slot</strong> to minimize passenger travel distance. For trucks, contiguous slot pairing is verified prior to dispatch lock.
+            </p>
+<div class="mt-1 pt-2 border-t border-outline-variant flex flex-wrap items-center justify-between gap-2 text-label-mono-sm font-label-mono-sm">
+<div class="flex items-center gap-2">
+<span class="text-on-surface-variant">Target Slot Candidate:</span>
+<span class="px-2 py-0.5 rounded bg-surface-container-lowest text-secondary font-bold border border-outline-variant" id="targetCandidate">Slot 07</span>
+</div>
+<div class="flex items-center gap-1.5 text-on-surface-variant">
+<span class="w-2 h-2 rounded-full bg-tertiary-fixed-dim"></span>
+<span>Latency: 14ms (Optimal)</span>
+</div>
+</div>
+</div>
+<!-- Action Button Area -->
+<div class="flex items-center gap-space-md pt-2">
+<button class="flex-1 h-12 bg-secondary hover:bg-on-secondary-fixed-variant text-on-secondary font-label-ui text-label-ui rounded-lg shadow-sm transition-all flex items-center justify-center gap-2 active:scale-[0.99] focus:outline-none focus:ring-4 focus:ring-secondary/20" type="submit">
+<span class="material-symbols-outlined text-[20px]">confirmation_number</span>
+<span class="text-[14px]">Generate Ticket &amp; Allocate Slot</span>
+</button>
+<button class="h-12 px-5 border border-outline-variant bg-surface-container-lowest hover:bg-surface-container text-on-surface-variant font-label-ui text-label-ui rounded-lg transition-colors flex items-center justify-center gap-1.5" onclick="document.getElementById('plateInput').value=''; document.getElementById('plateInput').focus();" type="button">
+<span class="material-symbols-outlined text-[18px]">restart_alt</span>
+<span>Reset</span>
+</button>
+</div>
+</form>
+</section>
+<!-- RIGHT COLUMN: Generated Parking Ticket Preview (5 cols) -->
+<section class="lg:col-span-5 flex flex-col gap-space-md">
+<!-- Section Header -->
+<div class="flex items-center justify-between px-1">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-on-surface text-[20px]">receipt_long</span>
+<span class="text-headline-sm font-headline-sm text-on-surface">Ticket Print Manifest</span>
+</div>
+<span class="text-label-mono-sm font-label-mono-sm px-2 py-0.5 rounded bg-surface-container-high text-on-surface-variant border border-outline-variant">PREVIEW BUFFER</span>
+</div>
+<!-- The Physical Ticket Card (Printable Styling) -->
+<div class="bg-surface-container-lowest rounded-xl border border-outline-variant shadow-sm relative overflow-hidden flex flex-col">
+<!-- Top Perforation Header Aesthetic -->
+<div class="bg-primary-container px-6 py-5 text-inverse-on-surface flex items-center justify-between">
+<div class="flex items-center gap-2.5">
+<div class="w-8 h-8 rounded bg-secondary flex items-center justify-center text-on-secondary">
+<span class="material-symbols-outlined text-[20px]">local_parking</span>
+</div>
+<div>
+<div class="text-title-md font-title-md font-bold text-inverse-on-surface tracking-tight">ParkEase Transit Slip</div>
+<div class="text-label-mono-sm font-label-mono-sm text-on-primary-container">OFFICIAL ADMISSION RECEIPT</div>
+</div>
+</div>
+<div class="text-right">
+<span class="text-label-mono font-label-mono text-tertiary-fixed font-bold text-[14px]" id="ticketNumDisplay">TKT-1082</span>
+<div class="text-label-mono-sm font-label-mono-sm text-on-primary-container">GATE #01-IN</div>
+</div>
+</div>
+<!-- Perforation Sawtooth / Border Divider -->
+<div class="relative h-4 bg-surface-container-lowest border-b border-dashed border-outline-variant flex items-center justify-between px-3">
+<div class="w-4 h-4 rounded-full bg-background -ml-5 border border-outline-variant"></div>
+<div class="w-4 h-4 rounded-full bg-background -mr-5 border border-outline-variant"></div>
+</div>
+<!-- Ticket Core Body -->
+<div class="p-6 flex flex-col gap-space-md">
+<!-- Vehicle Number Banner -->
+<div class="flex flex-col items-center justify-center p-3.5 bg-surface-container-low rounded-lg border border-outline-variant">
+<span class="text-label-mono-sm font-label-mono-sm text-outline tracking-wider">ALLOCATED VEHICLE REGISTRATION</span>
+<div class="mt-1 text-headline-md font-label-mono font-bold text-on-surface tracking-widest bg-surface-container-lowest px-4 py-1 rounded border border-outline shadow-xs" id="previewPlate">
+                KA-05-MJ-4321
+              </div>
+</div>
+<!-- 2x2 Ticket Attributes Grid -->
+<div class="grid grid-cols-2 gap-x-4 gap-y-4 pt-1">
+<div class="flex flex-col">
+<span class="text-label-mono-sm font-label-mono-sm text-on-surface-variant uppercase">Vehicle Type</span>
+<span class="text-title-md font-title-md font-semibold text-on-surface flex items-center gap-1.5 mt-0.5" id="ticketVehicleType">
+<span class="material-symbols-outlined text-[18px] text-secondary">directions_car</span>
+                  Car
+                </span>
+</div>
+<div class="flex flex-col">
+<span class="text-label-mono-sm font-label-mono-sm text-on-surface-variant uppercase">Assigned Slot</span>
+<span class="text-title-md font-title-md font-bold text-secondary flex items-center gap-1 mt-0.5" id="ticketSlot">
+<span class="material-symbols-outlined text-[18px]">local_parking</span>
+                  Slot 07
+                </span>
+</div>
+<div class="flex flex-col">
+<span class="text-label-mono-sm font-label-mono-sm text-on-surface-variant uppercase">Entry Timestamp</span>
+<span class="text-body-md font-label-mono text-on-surface font-medium mt-0.5">14:35, 24 Oct 2024</span>
+</div>
+<div class="flex flex-col">
+<span class="text-label-mono-sm font-label-mono-sm text-on-surface-variant uppercase">Hourly Tariff</span>
+<span class="text-body-md font-body-md font-semibold text-on-surface mt-0.5" id="ticketTariff">
+                  ₹30/hr <span class="text-label-mono-sm font-label-mono-sm text-on-surface-variant font-normal">(8-hr max cap applies)</span>
+</span>
+</div>
+</div>
+<!-- Barcode & QR Validation Area -->
+<div class="pt-4 border-t border-outline-variant flex flex-col items-center justify-center gap-2">
+<div class="w-full h-12 barcode-lines rounded-sm opacity-90"></div>
+<div class="text-label-mono-sm font-label-mono-sm text-outline tracking-widest text-center">
+                *TKT-1082-KA05MJ4321-SLOT07*
+              </div>
+</div>
+<!-- Security Footnote -->
+<div class="p-2.5 rounded bg-surface-container text-on-surface-variant text-body-sm font-body-sm border border-outline-variant text-center">
+              Please preserve this ticket. Lost ticket incurs an administrative fine of ₹250 plus accrued duration tariff.
+            </div>
+</div>
+<!-- Printable Actions Footer -->
+<div class="bg-surface-container px-6 py-3.5 border-t border-outline-variant flex items-center justify-between">
+<button class="px-4 py-2 bg-on-surface hover:bg-inverse-surface text-surface-container-lowest font-label-ui text-label-ui rounded shadow-sm transition-colors flex items-center gap-1.5" onclick="window.print()" type="button">
+<span class="material-symbols-outlined text-[18px]">print</span>
+<span>Print Slip</span>
+</button>
+<button class="px-4 py-2 border border-outline-variant bg-surface-container-lowest hover:bg-surface text-on-surface font-label-ui text-label-ui rounded shadow-xs transition-colors flex items-center gap-1.5" onclick="alert('Ticket downloaded as PDF: TKT-1082.pdf')" type="button">
+<span class="material-symbols-outlined text-[18px]">download</span>
+<span>Download PDF</span>
+</button>
+</div>
+</div>
+<!-- Terminal Status Card -->
+<div class="p-4 rounded-lg bg-surface-container-lowest border border-outline-variant flex items-center justify-between">
+<div class="flex items-center gap-3">
+<span class="w-2.5 h-2.5 rounded-full bg-tertiary-fixed-dim"></span>
+<div>
+<div class="text-label-ui font-label-ui text-on-surface">Thermal Ticket Printer #01</div>
+<div class="text-label-mono-sm font-label-mono-sm text-on-surface-variant">Paper Roll: 84% Remaining | Feed Ready</div>
+</div>
+</div>
+<span class="text-label-mono-sm font-label-mono-sm text-tertiary-fixed-variant font-bold bg-surface px-2 py-1 rounded border border-outline-variant">ONLINE</span>
+</div>
+</section>
+</div>
+<!-- BOTTOM HELPER: Live Available Slots Preview Row -->
+<section class="bg-surface-container-lowest rounded-xl border border-outline-variant p-space-lg shadow-sm flex flex-col gap-space-md">
+<!-- Section Title & Legend -->
+<div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 pb-2 border-b border-outline-variant">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-secondary text-[22px]">grid_view</span>
+<div>
+<h2 class="text-title-md font-title-md font-semibold text-on-surface">Live Available Slots Preview</h2>
+<p class="text-body-sm font-body-sm text-on-surface-variant">Real-time status of unallocated bays ready for immediate admission.</p>
+</div>
+</div>
+<!-- Legend -->
+<div class="flex items-center gap-3 text-label-mono-sm font-label-mono-sm">
+<div class="flex items-center gap-1.5">
+<span class="w-3 h-3 rounded bg-surface-container border border-outline-variant"></span>
+<span class="text-on-surface-variant">Available</span>
+</div>
+<div class="flex items-center gap-1.5">
+<span class="w-3 h-3 rounded bg-secondary text-on-secondary flex items-center justify-center text-[8px]">✓</span>
+<span class="text-secondary font-bold">Allocated Candidate</span>
+</div>
+<div class="flex items-center gap-1.5">
+<span class="w-3 h-3 rounded bg-surface-variant border border-outline"></span>
+<span class="text-outline">Occupied</span>
+</div>
+</div>
+</div>
+<!-- Free Slot Chips Grid / Row (Chips showing free slot numbers) -->
+<div class="flex flex-wrap items-center gap-2.5 pt-1">
+<!-- Slot 01 (Occupied) -->
+<div class="px-3 py-2 rounded-lg bg-surface-container-high/60 border border-outline-variant/60 text-outline flex items-center gap-2 opacity-60 cursor-not-allowed">
+<span class="material-symbols-outlined text-[16px]">lock</span>
+<span class="font-label-mono text-label-mono">Slot 01</span>
+<span class="text-label-mono-sm font-label-mono-sm px-1 rounded bg-surface">OCC</span>
+</div>
+<!-- Slot 02 (Free - Bike Priority) -->
+<div class="px-3 py-2 rounded-lg bg-surface-container border border-outline-variant text-on-surface hover:border-secondary cursor-pointer transition-all flex items-center gap-2" onclick="selectSlot('Slot 02')">
+<span class="w-2 h-2 rounded-full bg-tertiary-fixed-dim"></span>
+<span class="font-label-mono text-label-mono font-semibold">Slot 02</span>
+<span class="text-label-mono-sm font-label-mono-sm px-1.5 py-0.5 rounded bg-surface-container-lowest text-tertiary-fixed-variant font-medium border border-outline-variant">Free</span>
+</div>
+<!-- Slot 03 (Free) -->
+<div class="px-3 py-2 rounded-lg bg-surface-container border border-outline-variant text-on-surface hover:border-secondary cursor-pointer transition-all flex items-center gap-2" onclick="selectSlot('Slot 03')">
+<span class="w-2 h-2 rounded-full bg-tertiary-fixed-dim"></span>
+<span class="font-label-mono text-label-mono font-semibold">Slot 03</span>
+<span class="text-label-mono-sm font-label-mono-sm px-1.5 py-0.5 rounded bg-surface-container-lowest text-tertiary-fixed-variant font-medium border border-outline-variant">Free</span>
+</div>
+<!-- Slot 04 (Occupied by DL-04-CA-1029) -->
+<div class="px-3 py-2 rounded-lg bg-error-container/20 border border-error/30 text-error flex items-center gap-2 cursor-not-allowed" title="Vehicle DL-04-CA-1029 is parked here">
+<span class="material-symbols-outlined text-[16px]">block</span>
+<span class="font-label-mono text-label-mono">Slot 04</span>
+<span class="text-label-mono-sm font-label-mono-sm px-1.5 py-0.5 rounded bg-error-container text-error font-medium">DL-04</span>
+</div>
+<!-- Slot 05 (Occupied) -->
+<div class="px-3 py-2 rounded-lg bg-surface-container-high/60 border border-outline-variant/60 text-outline flex items-center gap-2 opacity-60 cursor-not-allowed">
+<span class="material-symbols-outlined text-[16px]">lock</span>
+<span class="font-label-mono text-label-mono">Slot 05</span>
+<span class="text-label-mono-sm font-label-mono-sm px-1 rounded bg-surface">OCC</span>
+</div>
+<!-- Slot 06 (Occupied) -->
+<div class="px-3 py-2 rounded-lg bg-surface-container-high/60 border border-outline-variant/60 text-outline flex items-center gap-2 opacity-60 cursor-not-allowed">
+<span class="material-symbols-outlined text-[16px]">lock</span>
+<span class="font-label-mono text-label-mono">Slot 06</span>
+<span class="text-label-mono-sm font-label-mono-sm px-1 rounded bg-surface">OCC</span>
+</div>
+<!-- Slot 07 (ACTIVE ALLOCATION CANDIDATE) -->
+<div class="px-3.5 py-2 rounded-lg bg-secondary-container text-on-secondary shadow-sm flex items-center gap-2 cursor-pointer ring-2 ring-secondary ring-offset-2" id="slot07Chip">
+<span class="material-symbols-outlined text-[16px]">radio_button_checked</span>
+<span class="font-label-mono text-label-mono font-bold">Slot 07</span>
+<span class="text-label-mono-sm font-label-mono-sm px-1.5 py-0.5 rounded bg-surface-container-lowest text-secondary font-bold">ALLOCATING</span>
+</div>
+<!-- Slot 08 (Free) -->
+<div class="px-3 py-2 rounded-lg bg-surface-container border border-outline-variant text-on-surface hover:border-secondary cursor-pointer transition-all flex items-center gap-2" onclick="selectSlot('Slot 08')">
+<span class="w-2 h-2 rounded-full bg-tertiary-fixed-dim"></span>
+<span class="font-label-mono text-label-mono font-semibold">Slot 08</span>
+<span class="text-label-mono-sm font-label-mono-sm px-1.5 py-0.5 rounded bg-surface-container-lowest text-tertiary-fixed-variant font-medium border border-outline-variant">Free</span>
+</div>
+<!-- Slot 09 (Free) -->
+<div class="px-3 py-2 rounded-lg bg-surface-container border border-outline-variant text-on-surface hover:border-secondary cursor-pointer transition-all flex items-center gap-2" onclick="selectSlot('Slot 09')">
+<span class="w-2 h-2 rounded-full bg-tertiary-fixed-dim"></span>
+<span class="font-label-mono text-label-mono font-semibold">Slot 09</span>
+<span class="text-label-mono-sm font-label-mono-sm px-1.5 py-0.5 rounded bg-surface-container-lowest text-tertiary-fixed-variant font-medium border border-outline-variant">Free</span>
+</div>
+<!-- Slot 10 (Occupied) -->
+<div class="px-3 py-2 rounded-lg bg-surface-container-high/60 border border-outline-variant/60 text-outline flex items-center gap-2 opacity-60 cursor-not-allowed">
+<span class="material-symbols-outlined text-[16px]">lock</span>
+<span class="font-label-mono text-label-mono">Slot 10</span>
+<span class="text-label-mono-sm font-label-mono-sm px-1 rounded bg-surface">OCC</span>
+</div>
+<!-- Consecutively Grouped Heavy Bays: Bay 11 & Bay 12 (TRK-01 Bound Corridor) -->
+<div class="px-3 py-2 rounded-lg border-2 border-dashed border-outline bg-surface-container flex items-center gap-2.5 text-on-surface" title="Consecutive Pair for Truck Freight">
+<span class="material-symbols-outlined text-[16px] text-secondary">alt_route</span>
+<span class="font-label-mono text-label-mono font-semibold">Bay 11-12 [Span]</span>
+<span class="text-label-mono-sm font-label-mono-sm px-1.5 py-0.5 rounded bg-surface-container-lowest text-on-surface-variant font-bold border border-outline-variant">2 Consecutive Available</span>
+</div>
+<!-- Slot 13 (Free) -->
+<div class="px-3 py-2 rounded-lg bg-surface-container border border-outline-variant text-on-surface hover:border-secondary cursor-pointer transition-all flex items-center gap-2" onclick="selectSlot('Slot 13')">
+<span class="w-2 h-2 rounded-full bg-tertiary-fixed-dim"></span>
+<span class="font-label-mono text-label-mono font-semibold">Slot 13</span>
+<span class="text-label-mono-sm font-label-mono-sm px-1.5 py-0.5 rounded bg-surface-container-lowest text-tertiary-fixed-variant font-medium border border-outline-variant">Free</span>
+</div>
+<!-- Slot 14 (Free) -->
+<div class="px-3 py-2 rounded-lg bg-surface-container border border-outline-variant text-on-surface hover:border-secondary cursor-pointer transition-all flex items-center gap-2" onclick="selectSlot('Slot 14')">
+<span class="w-2 h-2 rounded-full bg-tertiary-fixed-dim"></span>
+<span class="font-label-mono text-label-mono font-semibold">Slot 14</span>
+<span class="text-label-mono-sm font-label-mono-sm px-1.5 py-0.5 rounded bg-surface-container-lowest text-tertiary-fixed-variant font-medium border border-outline-variant">Free</span>
+</div>
+</div>
+<!-- Quick Summary Metric Bar -->
+<div class="mt-2 pt-3 border-t border-outline-variant flex flex-wrap items-center justify-between text-body-sm font-body-sm text-on-surface-variant">
+<div class="flex items-center gap-4">
+<span>Capacity: <strong class="text-on-surface">14/20 Occupied (70%)</strong></span>
+<span class="text-outline">•</span>
+<span>Free Standard Slots: <strong class="text-secondary font-semibold">5</strong></span>
+<span class="text-outline">•</span>
+<span>Free Consecutive Truck Spans: <strong class="text-secondary font-semibold">1 (Bay 11-12)</strong></span>
+</div>
+<div class="flex items-center gap-1 text-label-mono-sm font-label-mono-sm text-outline">
+<span class="material-symbols-outlined text-[14px]">refresh</span>
+          Synced via MQTT Socket #7
+        </div>
+</div>
+</section>
+</main>
+<!-- Interactive Demo Script -->
+<script>
+    // Live Clock Simulation
+    function updateLiveTime() {
+      const now = new Date();
+      const timeStr = now.toLocaleTimeString('en-US', { hour12: false }) + ' UTC+5:30';
+      const el = document.getElementById('live-time');
+      if (el) el.textContent = timeStr;
+    }
+    setInterval(updateLiveTime, 1000);
+
+    // Dynamic Plate Preview updates
+    function updatePlatePreview() {
+      const input = document.getElementById('plateInput');
+      const preview = document.getElementById('previewPlate');
+      const val = input.value.trim().toUpperCase() || 'KA-05-MJ-4321';
+      if (preview) {
+        preview.textContent = val;
+      }
+    }
+
+    // Vehicle Type Selector Handler
+    function handleTypeChange(type, rate, requirementNote, recommendedSlot) {
+      // Update ticket attributes
+      const typeDisplay = document.getElementById('ticketVehicleType');
+      const tariffDisplay = document.getElementById('ticketTariff');
+      const slotDisplay = document.getElementById('ticketSlot');
+      const candidateDisplay = document.getElementById('targetCandidate');
+
+      let icon = 'directions_car';
+      if (type === 'Bike') icon = 'two_wheeler';
+      if (type === 'Truck') icon = 'local_shipping';
+
+      if (typeDisplay) {
+        typeDisplay.innerHTML = `<span class="material-symbols-outlined text-[18px] text-secondary">${icon}</span> ${type}`;
+      }
+
+      if (tariffDisplay) {
+        tariffDisplay.innerHTML = `₹${rate}/hr <span class="text-label-mono-sm font-label-mono-sm text-on-surface-variant font-normal">(8-hr max cap applies)</span>`;
+      }
+
+      if (slotDisplay) {
+        slotDisplay.innerHTML = `<span class="material-symbols-outlined text-[18px]">local_parking</span> ${recommendedSlot}`;
+      }
+
+      if (candidateDisplay) {
+        candidateDisplay.textContent = recommendedSlot;
+      }
+    }
+
+    // Manual slot picker from bottom live row
+    function selectSlot(slotName) {
+      const slotDisplay = document.getElementById('ticketSlot');
+      const candidateDisplay = document.getElementById('targetCandidate');
+      if (slotDisplay) {
+        slotDisplay.innerHTML = `<span class="material-symbols-outlined text-[18px]">local_parking</span> ${slotName}`;
+      }
+      if (candidateDisplay) {
+        candidateDisplay.textContent = slotName;
+      }
+    }
+
+    // Ticket allocation submit simulation
+    function simulateAllocation() {
+      const plate = document.getElementById('plateInput').value.trim();
+      
+      // Duplicate vehicle check rule
+      if (plate === 'DL-04-CA-1029') {
+        alert('Validation Error: Vehicle DL-04-CA-1029 is already parked in Slot 04. Duplicate entry denied.');
+        return;
+      }
+
+      // Random ticket incrementer
+      const randomTicketNum = 'TKT-' + (1080 + Math.floor(Math.random() * 20));
+      const ticketNumDisplay = document.getElementById('ticketNumDisplay');
+      if (ticketNumDisplay) {
+        ticketNumDisplay.textContent = randomTicketNum;
+      }
+
+      alert('Success! ' + randomTicketNum + ' successfully generated and slot locked in database.');
+    }
+  </script>
+</body></html>

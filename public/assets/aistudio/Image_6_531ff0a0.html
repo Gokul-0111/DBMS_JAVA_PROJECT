@@ -1,0 +1,716 @@
+<!DOCTYPE html>
+
+<html class="h-full bg-surface" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Vehicle Exit &amp; Billing - ParkEase</title>
+<!-- Material Symbols Outlined -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Google Fonts: Plus Jakarta Sans & JetBrains Mono -->
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&amp;family=Plus+Jakarta+Sans:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Tailwind CSS v3 -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          "colors": {
+            "surface": "#f8f9ff",
+            "error-container": "#ffdad6",
+            "surface-bright": "#f8f9ff",
+            "primary-container": "#131b2e",
+            "secondary-container": "#316bf3",
+            "on-error-container": "#93000a",
+            "secondary-fixed": "#dbe1ff",
+            "primary": "#000000",
+            "surface-container-lowest": "#ffffff",
+            "on-secondary-container": "#fefcff",
+            "tertiary": "#000000",
+            "inverse-on-surface": "#eaf1ff",
+            "error": "#ba1a1a",
+            "primary-fixed": "#dae2fd",
+            "surface-container": "#e5eeff",
+            "surface-container-low": "#eff4ff",
+            "tertiary-container": "#002113",
+            "on-tertiary": "#ffffff",
+            "background": "#f8f9ff",
+            "on-primary-container": "#7c839b",
+            "surface-variant": "#d3e4fe",
+            "outline": "#76777d",
+            "surface-container-highest": "#d3e4fe",
+            "on-primary": "#ffffff",
+            "inverse-primary": "#bec6e0",
+            "on-primary-fixed-variant": "#3f465c",
+            "on-error": "#ffffff",
+            "inverse-surface": "#213145",
+            "on-primary-fixed": "#131b2e",
+            "surface-tint": "#565e74",
+            "on-surface": "#0b1c30",
+            "on-tertiary-container": "#009668",
+            "on-tertiary-fixed-variant": "#005236",
+            "on-surface-variant": "#45464d",
+            "on-secondary-fixed": "#00174b",
+            "outline-variant": "#c6c6cd",
+            "tertiary-fixed": "#6ffbbe",
+            "surface-container-high": "#dce9ff",
+            "tertiary-fixed-dim": "#4edea3",
+            "secondary": "#0051d5",
+            "on-secondary-fixed-variant": "#003ea8",
+            "on-secondary": "#ffffff",
+            "on-tertiary-fixed": "#002113",
+            "surface-dim": "#cbdbf5",
+            "primary-fixed-dim": "#bec6e0",
+            "secondary-fixed-dim": "#b4c5ff",
+            "on-background": "#0b1c30"
+          },
+          "borderRadius": {
+            "DEFAULT": "0.25rem",
+            "lg": "0.5rem",
+            "xl": "0.75rem",
+            "full": "9999px"
+          },
+          "spacing": {
+            "space-sm": "0.5rem",
+            "gutter": "1rem",
+            "space-xl": "2rem",
+            "space-md": "1rem",
+            "margin": "1.5rem",
+            "space-lg": "1.5rem",
+            "gutter-lg": "1.5rem",
+            "space-xs": "0.25rem",
+            "margin-lg": "2rem"
+          },
+          "fontFamily": {
+            "headline-sm": ["Plus Jakarta Sans"],
+            "body-sm": ["Plus Jakarta Sans"],
+            "title-md": ["Plus Jakarta Sans"],
+            "label-mono-sm": ["JetBrains Mono"],
+            "body-md": ["Plus Jakarta Sans"],
+            "body-lg": ["Plus Jakarta Sans"],
+            "label-ui": ["Plus Jakarta Sans"],
+            "label-mono": ["JetBrains Mono"],
+            "headline-md": ["Plus Jakarta Sans"],
+            "display-lg": ["Plus Jakarta Sans"]
+          },
+          "fontSize": {
+            "headline-sm": ["18px", {"lineHeight": "26px", "letterSpacing": "-0.01em", "fontWeight": "600"}],
+            "body-sm": ["12px", {"lineHeight": "16px", "fontWeight": "400"}],
+            "title-md": ["16px", {"lineHeight": "24px", "fontWeight": "600"}],
+            "label-mono-sm": ["11px", {"lineHeight": "14px", "letterSpacing": "0.06em", "fontWeight": "500"}],
+            "body-md": ["13px", {"lineHeight": "18px", "fontWeight": "400"}],
+            "body-lg": ["15px", {"lineHeight": "22px", "fontWeight": "400"}],
+            "label-ui": ["12px", {"lineHeight": "16px", "letterSpacing": "0.02em", "fontWeight": "600"}],
+            "label-mono": ["13px", {"lineHeight": "16px", "letterSpacing": "0.04em", "fontWeight": "600"}],
+            "headline-md": ["24px", {"lineHeight": "32px", "letterSpacing": "-0.015em", "fontWeight": "600"}],
+            "display-lg": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.02em", "fontWeight": "700"}]
+          }
+        }
+      }
+    }
+  </script>
+<style>
+    .material-symbols-outlined {
+      font-family: 'Material Symbols Outlined';
+      font-weight: normal;
+      font-style: normal;
+      font-size: 20px;
+      line-height: 1;
+      letter-spacing: normal;
+      text-transform: none;
+      display: inline-block;
+      white-space: nowrap;
+      word-wrap: normal;
+      direction: ltr;
+      -webkit-font-smoothing: antialiased;
+    }
+    
+    /* Dual-slot heavy vehicle corridor styling */
+    .truck-bay-bracket {
+      border: 2px dashed #94a3b8;
+      border-radius: 6px;
+    }
+  </style>
+</head>
+<body class="min-h-full bg-surface text-on-surface antialiased flex flex-col font-body-md text-body-md selection:bg-secondary-fixed selection:text-on-secondary-fixed">
+<!-- TOP APP BAR (Shared Component JSON anchor) -->
+<header class="docked full-width top-0 sticky z-50 shadow-sm dark:shadow-none bg-surface-container-lowest dark:bg-primary-container border-b border-outline-variant dark:border-outline">
+<div class="w-full px-space-lg py-2 flex items-center justify-between border-b border-outline-variant dark:border-outline bg-surface-container-lowest dark:bg-primary-container">
+<!-- Brand & Global Nav Links -->
+<div class="flex items-center gap-space-lg">
+<div class="flex items-center gap-2">
+<span class="w-8 h-8 rounded bg-primary flex items-center justify-center text-on-primary">
+<span class="material-symbols-outlined text-[18px]">local_parking</span>
+</span>
+<span class="text-headline-md font-headline-md font-bold text-on-surface dark:text-inverse-on-surface tracking-tight">ParkEase</span>
+</div>
+<nav class="hidden md:flex items-center gap-6 ml-4">
+<a class="text-on-surface-variant dark:text-outline-variant font-title-md text-title-md pb-3 pt-3 flex items-center gap-2 transition-colors duration-150 hover:text-secondary dark:hover:text-secondary-fixed" href="#">
+<span class="material-symbols-outlined">dashboard</span>
+<span>Dashboard</span>
+</a>
+<a class="text-on-surface-variant dark:text-outline-variant font-title-md text-title-md pb-3 pt-3 flex items-center gap-2 transition-colors duration-150 hover:text-secondary dark:hover:text-secondary-fixed" href="#">
+<span class="material-symbols-outlined">directions_car</span>
+<span>Park Vehicle</span>
+</a>
+<!-- ACTIVE NAVIGATION LINK: Vehicle Exit & Billing -->
+<a class="text-secondary dark:text-secondary-fixed font-title-md text-title-md border-b-2 border-secondary dark:border-secondary-fixed pb-3 pt-3 flex items-center gap-2 cursor-pointer active:scale-98 transition-all duration-150" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">receipt_long</span>
+<span>Vehicle Exit &amp; Billing</span>
+</a>
+<a class="text-on-surface-variant dark:text-outline-variant font-title-md text-title-md pb-3 pt-3 flex items-center gap-2 transition-colors duration-150 hover:text-secondary dark:hover:text-secondary-fixed" href="#">
+<span class="material-symbols-outlined">grid_view</span>
+<span>Live Slot Map</span>
+</a>
+<a class="text-on-surface-variant dark:text-outline-variant font-title-md text-title-md pb-3 pt-3 flex items-center gap-2 transition-colors duration-150 hover:text-secondary dark:hover:text-secondary-fixed" href="#">
+<span class="material-symbols-outlined">analytics</span>
+<span>Parking Summary</span>
+</a>
+</nav>
+</div>
+<!-- Trailing Status & Action Zone -->
+<div class="flex items-center gap-3">
+<!-- Live System Status Badge -->
+<div class="hidden lg:flex items-center gap-2 px-3 py-1 rounded-full bg-surface-container border border-outline-variant/50">
+<span class="w-2 h-2 rounded-full bg-tertiary-fixed-dim animate-pulse"></span>
+<span class="text-label-mono-sm font-label-mono-sm text-on-surface-variant">System Status: Active (Array[20])</span>
+</div>
+<!-- Emergency Override Secondary Action -->
+<button class="cursor-pointer active:scale-98 transition-all duration-150 px-3 py-1.5 rounded text-label-ui font-label-ui border border-error/40 text-error hover:bg-error-container/40 flex items-center gap-1.5" type="button">
+<span class="material-symbols-outlined text-[16px]">warning</span>
+<span>Emergency Override</span>
+</button>
+<div class="h-6 w-[1px] bg-outline-variant"></div>
+<!-- Icon actions from JSON -->
+<button aria-label="Notifications" class="p-1.5 rounded text-on-surface-variant hover:text-secondary hover:bg-surface-container-low transition-colors duration-150" type="button">
+<span class="material-symbols-outlined">notifications</span>
+</button>
+<button aria-label="Settings" class="p-1.5 rounded text-on-surface-variant hover:text-secondary hover:bg-surface-container-low transition-colors duration-150" type="button">
+<span class="material-symbols-outlined">settings</span>
+</button>
+<!-- Profile Avatar -->
+<div class="flex items-center gap-2 pl-1">
+<div class="w-8 h-8 rounded-full bg-surface-container-highest border border-outline-variant flex items-center justify-center overflow-hidden">
+<img class="w-full h-full object-cover" data-alt="Close up photographic profile avatar of a sharp facility operations director wearing modern tactical glasses in a high-tech control center, bathed in clean neutral illumination with deep blue accents in a minimal tech workspace." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBrXwy-mGKn_DIomYf-Q7EIVUFfA8j2GaaRofZKtdEPYQp6E5vqDjECrp4qO2CujNn5GiqIaDBatD1EnoyUP2-ywhCVAdVCgLVDiQLr1sCCYchTUGvMzdO4KyGRB6EfYRYKJ-WTdk5x5UVBtw8DE_t6yiymHTHCRssf9YTGup_SHVljFA944TAycHVoKNLRZWez26l5TZOi73qWdQMAT4U-yBUo4QBiaZfGKp8_fk51WE8d_gDsWQ"/>
+</div>
+</div>
+</div>
+</div>
+</header>
+<!-- SUB-HEADER / WORKSPACE CONTEXT BAR -->
+<div class="bg-surface-container-lowest border-b border-outline-variant px-space-lg py-3">
+<div class="max-w-[1720px] mx-auto flex flex-wrap items-center justify-between gap-4">
+<div class="flex items-center gap-3">
+<div class="w-9 h-9 rounded bg-surface-container flex items-center justify-center text-secondary">
+<span class="material-symbols-outlined">output</span>
+</div>
+<div>
+<div class="flex items-center gap-2">
+<h1 class="text-headline-sm font-headline-sm text-on-surface">Terminal Outpost: Bay Gate East #02</h1>
+<span class="px-2 py-0.5 rounded text-label-mono-sm font-label-mono-sm bg-surface-container-high text-on-surface-variant border border-outline-variant/60">JAVA_INTERFACE: CHARGEABLE_V2</span>
+</div>
+<p class="text-body-sm font-body-sm text-on-surface-variant">Automated egress validation, dwell time calculation &amp; real-time dual-slot release orchestration.</p>
+</div>
+</div>
+<div class="flex items-center gap-3">
+<div class="flex items-center gap-1.5 bg-surface px-3 py-1.5 rounded border border-outline-variant text-label-mono-sm font-label-mono-sm text-on-surface">
+<span class="material-symbols-outlined text-[16px] text-on-surface-variant">schedule</span>
+<span>SYSTEM TIME: <span class="font-bold" id="clock">16:45:12 IST</span></span>
+</div>
+<div class="flex items-center gap-1.5 bg-surface px-3 py-1.5 rounded border border-outline-variant text-label-mono-sm font-label-mono-sm text-on-surface">
+<span class="material-symbols-outlined text-[16px] text-tertiary-fixed-dim">sensors</span>
+<span>RFID SENSOR ARRAY: SYNCED</span>
+</div>
+</div>
+</div>
+</div>
+<!-- MAIN OPERATIONAL WORKSPACE -->
+<main class="flex-1 max-w-[1720px] w-full mx-auto px-space-lg py-space-lg flex flex-col gap-space-lg">
+<!-- SUCCESS CONFIRMATION BANNER (Interactive Demo State - Hidden by default or togglable) -->
+<div class="p-4 rounded-lg bg-surface-container-lowest border-2 border-[#10B981] shadow-sm flex items-start justify-between gap-4 transition-all duration-300" id="checkoutSuccessBanner">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-full bg-[#ECFDF5] border border-[#6EE7B7] flex items-center justify-center text-[#047857]">
+<span class="material-symbols-outlined text-[24px]" style="font-variation-settings: 'FILL' 1;">check_circle</span>
+</div>
+<div>
+<div class="flex items-center gap-2">
+<span class="text-label-ui font-label-ui uppercase tracking-wider text-[#047857]">Egress Authorization Complete</span>
+<span class="text-label-mono-sm font-label-mono-sm bg-[#ECFDF5] text-[#047857] px-2 py-0.5 rounded border border-[#A7F3D0]">TXN-REC-90812</span>
+</div>
+<h2 class="text-title-md font-title-md text-on-surface mt-0.5">
+            Vehicle <span class="font-label-mono text-label-mono bg-surface-container px-2 py-0.5 rounded border border-outline-variant font-bold">MH-12-DE-9876</span> checked out. <span class="text-[#047857] font-semibold">Slot 11 &amp; Slot 12</span> are now <span class="underline decoration-[#10B981] font-bold">AVAILABLE</span>.
+          </h2>
+<p class="text-body-sm font-body-sm text-on-surface-variant mt-0.5">
+            Heavy Freight barrier gate #02 raised. Telemetry signal propagated to central slot occupancy mesh.
+          </p>
+</div>
+</div>
+<div class="flex items-center gap-2">
+<button class="text-on-surface-variant hover:text-on-surface p-1 rounded hover:bg-surface-container transition-colors" onclick="document.getElementById('checkoutSuccessBanner').classList.add('hidden')">
+<span class="material-symbols-outlined">close</span>
+</button>
+</div>
+</div>
+<!-- TWO-COLUMN WORKFLOW GRID -->
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-space-lg items-start">
+<!-- LEFT PANEL: SEARCH & VEHICLE IDENTIFICATION (7 cols) -->
+<section class="lg:col-span-7 flex flex-col gap-space-md">
+<!-- Search Card -->
+<div class="bg-surface-container-lowest rounded-lg border border-outline-variant/80 p-5 shadow-sm">
+<div class="flex items-center justify-between pb-3 border-b border-outline-variant/60">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-secondary">search_check</span>
+<h3 class="text-title-md font-title-md text-on-surface">Vehicle Registration &amp; Ticket Look-up</h3>
+</div>
+<span class="text-label-mono-sm font-label-mono-sm text-on-surface-variant">INDEX: ANPR_LIVE + BARCODE</span>
+</div>
+<form class="mt-4" onsubmit="event.preventDefault();">
+<label class="block text-label-ui font-label-ui text-on-surface mb-1.5" for="vehicle-search-input">
+              Enter Vehicle Registration Number (Plate) or Ticket ID:
+            </label>
+<div class="flex gap-2">
+<div class="relative flex-1">
+<span class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-on-surface-variant">
+<span class="material-symbols-outlined text-[20px]">pin</span>
+</span>
+<input class="w-full h-10 pl-10 pr-3 bg-surface-container-lowest border border-outline-variant rounded font-label-mono text-label-mono uppercase text-on-surface focus:outline-none focus:border-secondary focus:ring-2 focus:ring-secondary/20 transition-all duration-150" id="vehicle-search-input" placeholder="e.g. MH-12-DE-9876 or TKT-1075" type="text" value="MH-12-DE-9876"/>
+</div>
+<button class="cursor-pointer active:scale-98 transition-all duration-150 px-4 h-10 bg-secondary text-on-secondary font-label-ui text-label-ui rounded flex items-center gap-1.5 shadow-sm hover:bg-[#0043b3]" type="submit">
+<span class="material-symbols-outlined text-[18px]">search</span>
+<span>Instant Look-up</span>
+</button>
+</div>
+<!-- Quick Filter Presets -->
+<div class="mt-3 flex items-center gap-2 text-body-sm font-body-sm text-on-surface-variant">
+<span>Recent fast-keys:</span>
+<button class="px-2 py-0.5 rounded bg-surface-container text-label-mono-sm font-label-mono-sm text-on-surface border border-outline-variant/60 hover:border-secondary" type="button">TKT-1075</button>
+<button class="px-2 py-0.5 rounded bg-surface-container text-label-mono-sm font-label-mono-sm text-on-surface border border-outline-variant/60 hover:border-secondary" type="button">DL-01-AB-1234</button>
+<button class="px-2 py-0.5 rounded bg-surface-container text-label-mono-sm font-label-mono-sm text-on-surface border border-outline-variant/60 hover:border-secondary" type="button">KA-04-TR-5541</button>
+</div>
+</form>
+</div>
+<!-- ACTIVE PARKED VEHICLE MATCH CARD -->
+<div class="bg-surface-container-lowest rounded-lg border border-outline-variant/80 p-5 shadow-sm relative overflow-hidden">
+<!-- Indicator strip -->
+<div class="absolute top-0 left-0 right-0 h-1 bg-secondary"></div>
+<div class="flex items-center justify-between pb-3 border-b border-outline-variant/60">
+<div class="flex items-center gap-2">
+<span class="inline-flex items-center justify-center w-6 h-6 rounded bg-secondary-fixed text-on-secondary-fixed">
+<span class="material-symbols-outlined text-[16px]">verified</span>
+</span>
+<h3 class="text-title-md font-title-md text-on-surface">Active Parked Vehicle Match Found</h3>
+</div>
+<!-- Category / Status Chip -->
+<div class="flex items-center gap-2">
+<span class="px-2.5 py-1 rounded border border-[#FCA5A5] bg-[#FEF2F2] text-[#B91C1C] text-label-ui font-label-ui flex items-center gap-1">
+<span class="w-1.5 h-1.5 rounded-full bg-[#B91C1C] animate-ping"></span>
+<span>Occupied Stall</span>
+</span>
+</div>
+</div>
+<!-- Vehicle Primary Dossier -->
+<div class="mt-4 grid grid-cols-1 md:grid-cols-2 gap-4">
+<!-- Left Info Column -->
+<div class="space-y-3">
+<div>
+<span class="text-body-sm font-body-sm text-on-surface-variant block">Vehicle Registration Plate:</span>
+<div class="inline-flex items-center gap-2 mt-1 px-3 py-1 bg-surface-container rounded border border-outline-variant">
+<span class="text-[10px] font-bold text-on-surface-variant border-r border-outline-variant pr-1.5">IND</span>
+<span class="text-headline-sm font-label-mono text-on-surface tracking-wider font-bold">MH-12-DE-9876</span>
+</div>
+</div>
+<div class="flex items-center gap-4">
+<div>
+<span class="text-body-sm font-body-sm text-on-surface-variant block">Classification:</span>
+<div class="flex items-center gap-1.5 mt-0.5 text-title-md font-title-md text-on-surface">
+<span class="material-symbols-outlined text-secondary">local_shipping</span>
+<span>Heavy Freight / Truck</span>
+</div>
+</div>
+<div class="border-l border-outline-variant pl-4">
+<span class="text-body-sm font-body-sm text-on-surface-variant block">Ticket Identifier:</span>
+<span class="font-label-mono text-label-mono font-bold text-secondary mt-0.5 block">TKT-1075</span>
+</div>
+</div>
+</div>
+<!-- Right Info Column: Dual-Slot Bracket Display -->
+<div class="bg-surface p-3.5 rounded border border-outline-variant">
+<span class="text-body-sm font-body-sm text-on-surface-variant block mb-1">Assigned Slot Footprint:</span>
+<!-- Consecutive Truck / Heavy Vehicle Grouping Component -->
+<div class="truck-bay-bracket bg-surface-container-lowest p-2.5 flex items-center justify-between">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-on-surface-variant text-[28px]">width</span>
+<div>
+<span class="font-label-mono text-title-md text-on-surface font-bold">TRK-01 [BAY 11-12]</span>
+<span class="block text-label-mono-sm font-label-mono-sm text-on-surface-variant">Continuous Spanned Corridors</span>
+</div>
+</div>
+<div class="flex gap-1.5">
+<span class="px-2 py-1 bg-surface-container rounded border border-outline-variant text-label-mono text-label-mono font-bold text-on-surface">Slot 11</span>
+<span class="px-2 py-1 bg-surface-container rounded border border-outline-variant text-label-mono text-label-mono font-bold text-on-surface">Slot 12</span>
+</div>
+</div>
+<p class="text-label-mono-sm font-label-mono-sm text-on-surface-variant mt-1.5">Two vertically linked bays automatically locked for vehicle length clearance.</p>
+</div>
+</div>
+<!-- In-Time vs Out-Time Timeline Bar -->
+<div class="mt-5 pt-4 border-t border-outline-variant/60 grid grid-cols-1 sm:grid-cols-2 gap-3">
+<div class="flex items-center gap-3 p-3 rounded bg-surface border border-outline-variant">
+<div class="w-9 h-9 rounded bg-surface-container flex items-center justify-center text-on-surface-variant">
+<span class="material-symbols-outlined">login</span>
+</div>
+<div>
+<span class="text-body-sm font-body-sm text-on-surface-variant block">Entry Timestamp (In-Time):</span>
+<span class="font-label-mono text-title-md font-bold text-on-surface">09:15 AM</span>
+<span class="text-label-mono-sm font-label-mono-sm text-on-surface-variant block">Session Start #1075</span>
+</div>
+</div>
+<div class="flex items-center gap-3 p-3 rounded bg-surface border border-outline-variant">
+<div class="w-9 h-9 rounded bg-surface-container-high flex items-center justify-center text-secondary">
+<span class="material-symbols-outlined">logout</span>
+</div>
+<div>
+<span class="text-body-sm font-body-sm text-on-surface-variant block">Current Exit Time (Out-Time):</span>
+<span class="font-label-mono text-title-md font-bold text-on-surface">04:45 PM</span>
+<span class="text-label-mono-sm font-label-mono-sm text-secondary block font-semibold">Active Sensor Ping Match</span>
+</div>
+</div>
+</div>
+<!-- DURATION COMPUTATION & CEILING RULE BOX -->
+<div class="mt-4 p-4 rounded-lg bg-surface-container-low border border-secondary/30 flex flex-col md:flex-row md:items-center justify-between gap-4">
+<div>
+<div class="flex items-center gap-2">
+<span class="text-label-ui font-label-ui text-on-surface">Duration Computation Engine</span>
+<!-- Tooltip Trigger Badge -->
+<span class="group relative inline-flex items-center cursor-help">
+<span class="px-2 py-0.5 rounded text-label-mono-sm font-label-mono-sm bg-surface-container-high text-secondary border border-secondary/30 flex items-center gap-1 font-semibold">
+<span class="material-symbols-outlined text-[13px]">info</span>
+<span>Billing Rule: Math.ceil()</span>
+</span>
+<!-- Tooltip popup content -->
+<div class="absolute bottom-full left-0 mb-2 hidden group-hover:flex flex-col w-64 p-2.5 bg-inverse-surface text-inverse-on-surface text-body-sm font-body-sm rounded shadow-lg z-20 pointer-events-none border border-outline">
+<span class="font-bold text-white mb-0.5">Chargeable Billing Rule</span>
+                    Partial hours rounded up to next integer hour. Example: 7 hrs 30 mins (7.5 hrs) evaluates to 8 billable units.
+                  </div>
+</span>
+</div>
+<!-- Computed comparison stats -->
+<div class="mt-2 flex items-baseline gap-4">
+<div>
+<span class="text-label-mono-sm font-label-mono-sm text-on-surface-variant block">ACTUAL ELAPSED:</span>
+<span class="font-label-mono text-headline-sm font-bold text-on-surface">7.5 <span class="text-body-md font-normal text-on-surface-variant">hours (450 mins)</span></span>
+</div>
+<div class="text-on-surface-variant">
+<span class="material-symbols-outlined text-[20px]">arrow_forward</span>
+</div>
+<div>
+<span class="text-label-mono-sm font-label-mono-sm text-secondary block font-bold">ROUNDED BILLABLE HOURS:</span>
+<span class="font-label-mono text-headline-sm font-bold text-secondary">8 <span class="text-body-md font-normal text-secondary">billable hours</span></span>
+</div>
+</div>
+</div>
+<!-- Micro summary meter -->
+<div class="bg-surface-container-lowest p-3 rounded border border-outline-variant flex items-center gap-3">
+<div class="w-12 h-12 rounded-full border-4 border-secondary border-t-outline-variant flex items-center justify-center font-label-mono text-title-md font-bold text-secondary">
+                8h
+              </div>
+<div>
+<span class="text-label-ui font-label-ui text-on-surface block">Quota Exhaustion</span>
+<span class="text-label-mono-sm font-label-mono-sm text-tertiary-fixed-dim bg-primary-container px-1.5 py-0.5 rounded">100% of 8h Daily Cap</span>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- RIGHT PANEL: DETAILED BILLING & PAYMENT RECEIPT (5 cols) -->
+<section class="lg:col-span-5 flex flex-col gap-space-md">
+<div class="bg-surface-container-lowest rounded-lg border border-outline-variant/80 p-5 shadow-sm flex flex-col justify-between">
+<div>
+<div class="flex items-center justify-between pb-3 border-b border-outline-variant/60">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-secondary">receipt</span>
+<h3 class="text-title-md font-title-md text-on-surface">Chargeable Billing Manifest</h3>
+</div>
+<span class="font-label-mono text-label-mono-sm px-2 py-0.5 rounded bg-surface text-on-surface-variant border border-outline-variant">
+                RECEIPT #INV-2024-1075
+              </span>
+</div>
+<!-- Java Chargeable Interface Architecture Visual Indicator -->
+<div class="mt-4 p-3 rounded bg-surface border border-outline-variant/80 flex items-center justify-between">
+<div class="flex items-center gap-2.5">
+<span class="material-symbols-outlined text-on-surface-variant">code</span>
+<div>
+<span class="text-label-mono-sm font-label-mono-sm text-on-surface-variant block">CLASS RUNTIME:</span>
+<span class="font-label-mono text-label-mono font-semibold text-on-surface">TruckParkingChargesImpl</span>
+</div>
+</div>
+<span class="px-2 py-0.5 rounded text-label-mono-sm font-label-mono-sm bg-surface-container text-secondary font-medium border border-secondary/20">
+                HourlyTariff: ₹60/hr
+              </span>
+</div>
+<!-- Mathematical Line Item Breakdown -->
+<div class="mt-4 space-y-3 font-body-sm text-body-sm">
+<div class="flex items-center justify-between py-1.5 border-b border-outline-variant/40">
+<span class="text-on-surface-variant">Vehicle Class Tariff:</span>
+<span class="font-label-mono text-label-mono font-semibold text-on-surface">Truck (₹60.00 / hour)</span>
+</div>
+<div class="flex items-center justify-between py-1.5 border-b border-outline-variant/40">
+<span class="text-on-surface-variant">Billable Dwell Units:</span>
+<span class="font-label-mono text-label-mono font-semibold text-on-surface">8 Billable Hours</span>
+</div>
+<div class="flex items-center justify-between py-1.5 border-b border-outline-variant/40">
+<span class="text-on-surface-variant">Standard Tariff Math:</span>
+<span class="font-label-mono text-label-mono text-on-surface">8 hrs × ₹60.00 = ₹480.00</span>
+</div>
+<!-- 8-Hour Daily Cap indicator badge -->
+<div class="p-3 rounded bg-[#FFFBEB] border border-[#FCD34D] flex items-start gap-2.5">
+<span class="material-symbols-outlined text-[#B45309] text-[20px] mt-0.5">verified_user</span>
+<div>
+<div class="flex items-center gap-1.5">
+<span class="text-label-ui font-label-ui font-bold text-[#B45309]">8-Hour Daily Billing Cap Reached</span>
+<span class="text-[10px] font-bold px-1.5 py-0.2 bg-[#FEF3C7] text-[#92400E] rounded border border-[#FCD34D]">ENFORCED</span>
+</div>
+<p class="text-body-sm font-body-sm text-[#92400E] mt-0.5">
+                    Maximum daily rate limit applied. Subsequent hours incurred on this ticket will not accrue additional charges.
+                  </p>
+</div>
+</div>
+<div class="flex items-center justify-between py-1.5 border-b border-outline-variant/40">
+<span class="text-on-surface-variant">Facility Access Cess (Toll &amp; Cleanup):</span>
+<span class="font-label-mono text-label-mono text-on-surface">₹0.00 (Waived)</span>
+</div>
+<div class="flex items-center justify-between py-1.5 border-b border-outline-variant/40">
+<span class="text-on-surface-variant">Applicable GST / Surcharges:</span>
+<span class="font-label-mono text-label-mono text-on-surface">Inclusive in Tariff</span>
+</div>
+</div>
+<!-- TOTAL DUE CALLOUT -->
+<div class="mt-6 p-4 rounded-lg bg-surface-container flex items-center justify-between border border-outline-variant">
+<div>
+<span class="text-label-ui font-label-ui text-on-surface-variant block uppercase tracking-wide">Net Payable Amount</span>
+<span class="text-body-sm font-body-sm text-on-surface-variant">Method: POS Cash / FastTag Direct</span>
+</div>
+<div class="text-right">
+<span class="font-label-mono text-display-lg font-bold text-on-surface leading-none">₹480</span>
+<span class="block text-label-mono-sm font-label-mono-sm text-secondary font-bold">EXACT TARIFF MATCH</span>
+</div>
+</div>
+<!-- Terminal Operator Note -->
+<div class="mt-3 flex items-center gap-1.5 text-label-mono-sm font-label-mono-sm text-on-surface-variant">
+<span class="material-symbols-outlined text-[15px]">badge</span>
+<span>Operator: Raj Sharma (Terminal Kiosk East 02)</span>
+</div>
+</div>
+<!-- ACTION BUTTON CLUSTER -->
+<div class="mt-6 pt-4 border-t border-outline-variant/60 flex flex-col sm:flex-row gap-3">
+<!-- Confirm Payment & Release Slot Button -->
+<button class="cursor-pointer active:scale-98 transition-all duration-150 flex-1 px-4 py-3 bg-[#0F172A] hover:bg-[#1E293B] text-white rounded font-label-ui text-title-md flex items-center justify-center gap-2 shadow-md" onclick="triggerExitSuccess()" type="button">
+<span class="material-symbols-outlined text-[20px] text-tertiary-fixed-dim">lock_open</span>
+<span>Confirm Payment &amp; Release Slot</span>
+</button>
+<!-- Print Exit Receipt Button -->
+<button class="cursor-pointer active:scale-98 transition-all duration-150 px-4 py-3 bg-surface-container-lowest border border-outline text-on-surface hover:bg-surface rounded font-label-ui text-title-md flex items-center justify-center gap-1.5" onclick="window.print()" type="button">
+<span class="material-symbols-outlined text-[20px]">print</span>
+<span>Print Exit Receipt</span>
+</button>
+</div>
+</div>
+</section>
+</div>
+<!-- RECENT CHECKOUT TRANSACTIONS MINI-LOG TABLE -->
+<section class="bg-surface-container-lowest rounded-lg border border-outline-variant/80 p-5 shadow-sm">
+<div class="flex items-center justify-between pb-3 border-b border-outline-variant/60">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-secondary">history</span>
+<h3 class="text-title-md font-title-md text-on-surface">Recent Checkout Transactions Mini-Log</h3>
+</div>
+<div class="flex items-center gap-2">
+<span class="text-label-mono-sm font-label-mono-sm text-on-surface-variant">AUTOREFRESH: 30s</span>
+<button class="p-1 rounded text-on-surface-variant hover:text-secondary hover:bg-surface" type="button">
+<span class="material-symbols-outlined text-[18px]">refresh</span>
+</button>
+</div>
+</div>
+<div class="mt-3 overflow-x-auto">
+<table class="w-full text-left border-collapse">
+<thead>
+<tr class="bg-surface text-on-surface-variant text-[11px] font-bold uppercase tracking-wider border-b border-outline-variant">
+<th class="py-2.5 px-4 font-label-ui">Ticket ID</th>
+<th class="py-2.5 px-4 font-label-ui">Vehicle Reg Plate</th>
+<th class="py-2.5 px-4 font-label-ui">Class</th>
+<th class="py-2.5 px-4 font-label-ui">Bay / Slot Released</th>
+<th class="py-2.5 px-4 font-label-ui">Entry Time</th>
+<th class="py-2.5 px-4 font-label-ui">Exit Time</th>
+<th class="py-2.5 px-4 font-label-ui">Billable Hrs</th>
+<th class="py-2.5 px-4 font-label-ui">Paid Amount</th>
+<th class="py-2.5 px-4 font-label-ui">Status</th>
+<th class="py-2.5 px-4 font-label-ui text-right">Receipt</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-surface-container text-body-sm font-body-sm">
+<!-- Row 1: Truck MH-12-DE-9876 (Just processed) -->
+<tr class="hover:bg-surface/80 transition-colors duration-100 bg-[#ECFDF5]/30">
+<td class="py-2.5 px-4 font-label-mono text-label-mono font-bold text-secondary">TKT-1075</td>
+<td class="py-2.5 px-4 font-label-mono font-bold text-on-surface">
+<span class="px-2 py-0.5 rounded bg-surface border border-outline-variant text-label-mono-sm">MH-12-DE-9876</span>
+</td>
+<td class="py-2.5 px-4 text-on-surface">Truck (Dual)</td>
+<td class="py-2.5 px-4 font-label-mono text-label-mono text-on-surface font-semibold">Slot 11 &amp; Slot 12</td>
+<td class="py-2.5 px-4 font-label-mono-sm text-on-surface-variant">09:15 AM</td>
+<td class="py-2.5 px-4 font-label-mono-sm text-on-surface font-semibold">04:45 PM</td>
+<td class="py-2.5 px-4 font-label-mono text-on-surface">8 hrs (Cap)</td>
+<td class="py-2.5 px-4 font-label-mono font-bold text-on-surface">₹480.00</td>
+<td class="py-2.5 px-4">
+<span class="px-2 py-0.5 rounded-full text-[11px] font-semibold bg-[#ECFDF5] text-[#047857] border border-[#6EE7B7] inline-flex items-center gap-1">
+<span class="w-1.5 h-1.5 rounded-full bg-[#047857]"></span>
+                  Cleared
+                </span>
+</td>
+<td class="py-2.5 px-4 text-right">
+<button class="text-secondary hover:underline font-label-mono-sm font-label-mono-sm" type="button">#INV-1075</button>
+</td>
+</tr>
+<!-- Row 2 -->
+<tr class="hover:bg-surface/80 transition-colors duration-100">
+<td class="py-2.5 px-4 font-label-mono text-label-mono text-on-surface">TKT-1074</td>
+<td class="py-2.5 px-4 font-label-mono font-bold text-on-surface">
+<span class="px-2 py-0.5 rounded bg-surface border border-outline-variant text-label-mono-sm">KA-05-MN-2341</span>
+</td>
+<td class="py-2.5 px-4 text-on-surface">Car / Sedan</td>
+<td class="py-2.5 px-4 font-label-mono text-label-mono text-on-surface">Slot 04</td>
+<td class="py-2.5 px-4 font-label-mono-sm text-on-surface-variant">01:20 PM</td>
+<td class="py-2.5 px-4 font-label-mono-sm text-on-surface">04:10 PM</td>
+<td class="py-2.5 px-4 font-label-mono text-on-surface">3 hrs</td>
+<td class="py-2.5 px-4 font-label-mono font-bold text-on-surface">₹90.00</td>
+<td class="py-2.5 px-4">
+<span class="px-2 py-0.5 rounded-full text-[11px] font-semibold bg-[#ECFDF5] text-[#047857] border border-[#6EE7B7] inline-flex items-center gap-1">
+<span class="w-1.5 h-1.5 rounded-full bg-[#047857]"></span>
+                  Cleared
+                </span>
+</td>
+<td class="py-2.5 px-4 text-right">
+<button class="text-secondary hover:underline font-label-mono-sm font-label-mono-sm" type="button">#INV-1074</button>
+</td>
+</tr>
+<!-- Row 3 -->
+<tr class="hover:bg-surface/80 transition-colors duration-100">
+<td class="py-2.5 px-4 font-label-mono text-label-mono text-on-surface">TKT-1073</td>
+<td class="py-2.5 px-4 font-label-mono font-bold text-on-surface">
+<span class="px-2 py-0.5 rounded bg-surface border border-outline-variant text-label-mono-sm">DL-08-CQ-7890</span>
+</td>
+<td class="py-2.5 px-4 text-on-surface">Car / SUV</td>
+<td class="py-2.5 px-4 font-label-mono text-label-mono text-on-surface">Slot 09</td>
+<td class="py-2.5 px-4 font-label-mono-sm text-on-surface-variant">11:00 AM</td>
+<td class="py-2.5 px-4 font-label-mono-sm text-on-surface">03:45 PM</td>
+<td class="py-2.5 px-4 font-label-mono text-on-surface">5 hrs</td>
+<td class="py-2.5 px-4 font-label-mono font-bold text-on-surface">₹150.00</td>
+<td class="py-2.5 px-4">
+<span class="px-2 py-0.5 rounded-full text-[11px] font-semibold bg-[#ECFDF5] text-[#047857] border border-[#6EE7B7] inline-flex items-center gap-1">
+<span class="w-1.5 h-1.5 rounded-full bg-[#047857]"></span>
+                  Cleared
+                </span>
+</td>
+<td class="py-2.5 px-4 text-right">
+<button class="text-secondary hover:underline font-label-mono-sm font-label-mono-sm" type="button">#INV-1073</button>
+</td>
+</tr>
+<!-- Row 4 -->
+<tr class="hover:bg-surface/80 transition-colors duration-100">
+<td class="py-2.5 px-4 font-label-mono text-label-mono text-on-surface">TKT-1072</td>
+<td class="py-2.5 px-4 font-label-mono font-bold text-on-surface">
+<span class="px-2 py-0.5 rounded bg-surface border border-outline-variant text-label-mono-sm">MH-14-GH-4321</span>
+</td>
+<td class="py-2.5 px-4 text-on-surface">Motorcycle / 2W</td>
+<td class="py-2.5 px-4 font-label-mono text-label-mono text-on-surface">Slot 02 (M)</td>
+<td class="py-2.5 px-4 font-label-mono-sm text-on-surface-variant">08:30 AM</td>
+<td class="py-2.5 px-4 font-label-mono-sm text-on-surface">03:30 PM</td>
+<td class="py-2.5 px-4 font-label-mono text-on-surface">7 hrs</td>
+<td class="py-2.5 px-4 font-label-mono font-bold text-on-surface">₹105.00</td>
+<td class="py-2.5 px-4">
+<span class="px-2 py-0.5 rounded-full text-[11px] font-semibold bg-[#ECFDF5] text-[#047857] border border-[#6EE7B7] inline-flex items-center gap-1">
+<span class="w-1.5 h-1.5 rounded-full bg-[#047857]"></span>
+                  Cleared
+                </span>
+</td>
+<td class="py-2.5 px-4 text-right">
+<button class="text-secondary hover:underline font-label-mono-sm font-label-mono-sm" type="button">#INV-1072</button>
+</td>
+</tr>
+<!-- Row 5 -->
+<tr class="hover:bg-surface/80 transition-colors duration-100">
+<td class="py-2.5 px-4 font-label-mono text-label-mono text-on-surface">TKT-1071</td>
+<td class="py-2.5 px-4 font-label-mono font-bold text-on-surface">
+<span class="px-2 py-0.5 rounded bg-surface border border-outline-variant text-label-mono-sm">TS-09-UB-8812</span>
+</td>
+<td class="py-2.5 px-4 text-on-surface">Truck (Dual)</td>
+<td class="py-2.5 px-4 font-label-mono text-label-mono text-on-surface font-semibold">Slot 15 &amp; Slot 16</td>
+<td class="py-2.5 px-4 font-label-mono-sm text-on-surface-variant">06:00 AM</td>
+<td class="py-2.5 px-4 font-label-mono-sm text-on-surface">02:00 PM</td>
+<td class="py-2.5 px-4 font-label-mono text-on-surface">8 hrs (Cap)</td>
+<td class="py-2.5 px-4 font-label-mono font-bold text-on-surface">₹480.00</td>
+<td class="py-2.5 px-4">
+<span class="px-2 py-0.5 rounded-full text-[11px] font-semibold bg-[#ECFDF5] text-[#047857] border border-[#6EE7B7] inline-flex items-center gap-1">
+<span class="w-1.5 h-1.5 rounded-full bg-[#047857]"></span>
+                  Cleared
+                </span>
+</td>
+<td class="py-2.5 px-4 text-right">
+<button class="text-secondary hover:underline font-label-mono-sm font-label-mono-sm" type="button">#INV-1071</button>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="mt-4 flex items-center justify-between text-body-sm font-body-sm text-on-surface-variant pt-2 border-t border-outline-variant/40">
+<span>Displaying latest 5 egress receipts of 148 processed today.</span>
+<a class="text-secondary font-label-ui text-label-ui hover:underline flex items-center gap-1" href="#">
+<span>View full egress audit journal</span>
+<span class="material-symbols-outlined text-[16px]">arrow_forward</span>
+</a>
+</div>
+</section>
+</main>
+<!-- FOOTER NOTIFICATION & AUDIT BAR -->
+<footer class="bg-surface-container-lowest border-t border-outline-variant px-space-lg py-2 mt-auto">
+<div class="max-w-[1720px] mx-auto flex flex-col sm:flex-row items-center justify-between gap-2 text-body-sm font-body-sm text-on-surface-variant">
+<div class="flex items-center gap-4">
+<span>ParkEase Enterprise v4.8.2</span>
+<span class="text-outline-variant">|</span>
+<span class="font-label-mono text-label-mono-sm">Host: console-node-mum-04.internal</span>
+<span class="text-outline-variant">|</span>
+<span class="text-[#047857] flex items-center gap-1">
+<span class="w-2 h-2 rounded-full bg-[#10B981]"></span>
+          DB Replication: In-Sync
+        </span>
+</div>
+<div class="flex items-center gap-3">
+<span class="text-label-mono-sm font-label-mono-sm">All operations cryptographically signed</span>
+<span class="px-2 py-0.5 rounded bg-surface border border-outline-variant text-[11px] font-mono">TLS 1.3 SECURE</span>
+</div>
+</div>
+</footer>
+<!-- MICRO-INTERACTIONS SCRIPT -->
+<script>
+    function triggerExitSuccess() {
+      const banner = document.getElementById('checkoutSuccessBanner');
+      banner.classList.remove('hidden');
+      banner.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+
+    // Live clock ticker
+    function updateClock() {
+      const now = new Date();
+      const hours = String(now.getHours()).padStart(2, '0');
+      const minutes = String(now.getMinutes()).padStart(2, '0');
+      const seconds = String(now.getSeconds()).padStart(2, '0');
+      const clockElement = document.getElementById('clock');
+      if (clockElement) {
+        clockElement.textContent = `${hours}:${minutes}:${seconds} IST`;
+      }
+    }
+    setInterval(updateClock, 1000);
+  </script>
+</body></html>
